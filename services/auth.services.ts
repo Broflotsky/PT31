@@ -1,19 +1,15 @@
 import { ILoginFormValues } from "@/interfaces/login.interface";
 import { IRegisterFormValues } from "@/interfaces/register.interface";
-
-// Este userData sera la información que me llega del formulario
+const APIURL = process.env.NEXT_PUBLIC_API_URL;
 export const registerUser = async (userData: IRegisterFormValues) => {
   try {
-    const responseRegister = await fetch(
-      "http://localhost:3005/users/register",
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(userData),
+    const responseRegister = await fetch(`${APIURL}/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
       },
-    );
+      body: JSON.stringify(userData),
+    });
     if (responseRegister.ok) {
       return responseRegister.json();
     } else {
@@ -27,7 +23,7 @@ export const registerUser = async (userData: IRegisterFormValues) => {
 
 export const loginUser = async (userData: ILoginFormValues) => {
   try {
-    const responseRegister = await fetch("http://localhost:3005/users/login", {
+    const responseRegister = await fetch(`${APIURL}/users/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
